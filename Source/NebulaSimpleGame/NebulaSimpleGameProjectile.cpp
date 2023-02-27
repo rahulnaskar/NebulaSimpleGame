@@ -29,6 +29,22 @@ ANebulaSimpleGameProjectile::ANebulaSimpleGameProjectile()
 
 	// Die after 3 seconds by default
 	InitialLifeSpan = 3.0f;
+
+	/**
+	* \brief Start of Custom Code
+	*
+	* The following set of lines create a MaterialInstanceDynamic by creating a MaterialInterface first with the help of SoftObjectPath.
+	* The SoftObjectPath is a reference to an instanced Material done from one of the materials already available in StarterContent 
+	*/
+	_hitMaterialFilePath.SetPath(TEXT("/Script/Engine.MaterialInstanceConstant'/Game/StarterContent/Materials/MI_HitMaterial.MI_HitMaterial'"));
+	const auto hitMaterialInterface = Cast<UMaterialInterface>(_hitMaterialFilePath.TryLoad());
+	_hitMaterialInstance = UMaterialInstanceDynamic::Create(hitMaterialInterface, RootComponent);
+	/**
+	* \brief End of Custom Code
+	*
+	* The following set of lines create a MaterialInstanceDynamic by creating a MaterialInterface first with the help of SoftObjectPath.
+	* The SoftObjectPath is a reference to an instanced Material done from one of the materials already available in StarterContent
+	*/
 }
 
 void ANebulaSimpleGameProjectile::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
@@ -37,7 +53,18 @@ void ANebulaSimpleGameProjectile::OnHit(UPrimitiveComponent* HitComp, AActor* Ot
 	if ((OtherActor != nullptr) && (OtherActor != this) && (OtherComp != nullptr) && OtherComp->IsSimulatingPhysics())
 	{
 		OtherComp->AddImpulseAtLocation(GetVelocity() * 100.0f, GetActorLocation());
+		/**
+		* \brief Start of Custom Code
+		*
+		* The hit component is fit with a new material instance created in the BP
+		*/
+		OtherComp->SetMaterial(0, _hitMaterialInstance);
 
+		/**
+		* \brief End of Custom Code
+		*
+		* The hit component is fit with a new material instance created in the BP
+		*/
 		Destroy();
 	}
 }

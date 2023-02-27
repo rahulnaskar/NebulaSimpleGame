@@ -22,6 +22,21 @@ class ANebulaSimpleGameProjectile : public AActor
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Movement, meta = (AllowPrivateAccess = "true"))
 	UProjectileMovementComponent* ProjectileMovement;
 
+	/**
+	* \brief Start of Custom Code
+	* 
+	* These variables control change of material if an object is hit by the bullet
+	*/
+
+	FSoftObjectPath _hitMaterialFilePath;
+
+	TObjectPtr<UMaterialInstanceDynamic> _hitMaterialInstance;
+
+	/**
+	* \brief End of Custom Code
+	*
+	* These variables control change of material if an object is hit by the bullet
+	*/
 public:
 	ANebulaSimpleGameProjectile();
 
