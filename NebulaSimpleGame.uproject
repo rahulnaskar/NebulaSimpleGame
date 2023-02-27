@@ -1,0 +1,22 @@
+{
+	"FileVersion": 3,
+	"EngineAssociation": "{E04595CA-4E17-C989-BDB8-A9BE05C5FA01}",
+	"Category": "",
+	"Description": "",
+	"Modules": [
+		{
+			"Name": "NebulaSimpleGame",
+			"Type": "Runtime",
+			"LoadingPhase": "Default"
+		}
+	],
+	"Plugins": [
+		{
+			"Name": "ModelingToolsEditorMode",
+			"Enabled": true,
+			"TargetAllowList": [
+				"Editor"
+			]
+		}
+	]
+}
